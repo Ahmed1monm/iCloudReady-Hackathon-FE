@@ -77,79 +77,81 @@ export default function Campaigns() {
   };
 
   return (
-    <div className="p-6 bg-gray-50 min-h-screen px-4 md:px-8 lg:px-12">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">
-          Marketing Campaigns
-        </h1>
-        <p className="text-gray-500 mt-2">
-          Manage and monitor your marketing campaigns
-        </p>
-      </div>
+    <div className="p-6 bg-gray-50 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold text-gray-900">
+            Marketing Campaigns
+          </h1>
+          <p className="text-gray-500 mt-2">
+            Manage and monitor your marketing campaigns
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {data.map((campaign) => (
-          <Link
-            to={`/campaigns/${campaign._id}`}
-            key={campaign._id}
-            className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
-          >
-            {/* Card Header */}
-            <div className="p-6 border-b border-gray-100">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                    {campaign.name}
-                  </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data.map((campaign) => (
+            <Link
+              to={`/campaigns/${campaign._id}`}
+              key={campaign._id}
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden"
+            >
+              {/* Card Header */}
+              <div className="p-6 border-b border-gray-100">
+                <div className="flex justify-between items-start">
                   <div>
-                    {getStatusBadge(campaign.startDate, campaign.endDate)}
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                      {campaign.name}
+                    </h2>
+                    <div>
+                      {getStatusBadge(campaign.startDate, campaign.endDate)}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Card Content */}
-            <div className="p-6 space-y-4">
-              <div className="flex items-center gap-2 text-gray-600">
-                <Calendar className="h-4 w-4" />
-                <span className="text-sm">
-                  {formatDate(campaign.startDate)} -{" "}
-                  {formatDate(campaign.endDate)}
-                </span>
-              </div>
-
-              <div className="flex items-center gap-2 text-gray-600">
-                <DollarSign className="h-4 w-4" />
-                <span className="text-sm">
-                  Budget: ${campaign.budget.toLocaleString()}
-                </span>
-              </div>
-
-              {campaign.targetAudience &&
-                campaign.targetAudience.length > 0 && (
-                  <div className="flex items-center gap-2 text-gray-600">
-                    <Users className="h-4 w-4" />
-                    <span className="text-sm">
-                      {campaign.targetAudience
-                        .map((audience) => audience.name)
-                        .join(", ")}
-                    </span>
-                  </div>
-                )}
-
-              <div className="flex flex-wrap gap-2 mt-4">
-                {campaign.channels.map((channel) => (
-                  <span
-                    key={channel._id}
-                    className="px-3 py-1 text-sm rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors duration-200"
-                  >
-                    {channel.name}
+              {/* Card Content */}
+              <div className="p-6 space-y-4">
+                <div className="flex items-center gap-2 text-gray-600">
+                  <Calendar className="h-4 w-4" />
+                  <span className="text-sm">
+                    {formatDate(campaign.startDate)} -{" "}
+                    {formatDate(campaign.endDate)}
                   </span>
-                ))}
+                </div>
+
+                <div className="flex items-center gap-2 text-gray-600">
+                  <DollarSign className="h-4 w-4" />
+                  <span className="text-sm">
+                    Budget: ${campaign.budget.toLocaleString()}
+                  </span>
+                </div>
+
+                {campaign.targetAudience &&
+                  campaign.targetAudience.length > 0 && (
+                    <div className="flex items-center gap-2 text-gray-600">
+                      <Users className="h-4 w-4" />
+                      <span className="text-sm">
+                        {campaign.targetAudience
+                          .map((audience) => audience.name)
+                          .join(", ")}
+                      </span>
+                    </div>
+                  )}
+
+                <div className="flex flex-wrap gap-2 mt-4">
+                  {campaign.channels.map((channel) => (
+                    <span
+                      key={channel._id}
+                      className="px-3 py-1 text-sm rounded-full bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors duration-200"
+                    >
+                      {channel.name}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
