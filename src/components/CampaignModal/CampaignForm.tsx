@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Campaign } from '../../types/campaign';
 import StepOne from './StepOne';
 import StepTwo from './StepTwo';
+import { useNavigate } from 'react-router-dom';
 
 interface CampaignFormProps {
   onClose: () => void;
@@ -21,6 +22,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ onClose }) => {
   const [additionalInputs, setAdditionalInputs] = useState<{[key: string]: string[]}>({});
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const handleNext = async () => {
     try {
@@ -40,6 +42,7 @@ const CampaignForm: React.FC<CampaignFormProps> = ({ onClose }) => {
       setLoading(true);
       await axios.post('http://localhost:8000/api/v1/campaign', formData);
       onClose();
+      navigate('/campaigns');
     } catch (err) {
       setError('Failed to create campaign');
     } finally {
